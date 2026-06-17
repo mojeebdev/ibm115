@@ -540,10 +540,17 @@ select {
 }
 
 .hero-footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: clamp(12px, 2.5vh, 20px);
+  z-index: 2;
   font-family: var(--font-mono);
   font-size: clamp(9px, 2vw, 11px);
   color: var(--ink-tertiary);
   margin: 0;
+  text-align: center;
+  pointer-events: none;
 }
 
 @media (max-width: 640px) {
@@ -922,8 +929,8 @@ select {
   max-width: 640px;
 }
 
-.timeline-image-editorial img {
-  display: block;
+.timeline-image-editorial .timeline-ref-desktop,
+.timeline-image-editorial .timeline-ref-mobile {
   width: 100%;
   height: auto;
   border-radius: 8px;

@@ -35,11 +35,11 @@ export default function LandingPage() {
             </Link>
           </div>
         </div>
-
-        <p className="hero-footer">
-          Est. June 16, 1911 · 115 years of innovation
-        </p>
       </div>
+
+      <p className="hero-footer">
+        Est. June 16, 1911 · 115 years of innovation
+      </p>
     </main>
   );
 }
