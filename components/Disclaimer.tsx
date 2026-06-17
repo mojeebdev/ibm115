@@ -18,6 +18,7 @@ export default function Disclaimer() {
           lineHeight: 1.7,
         }}
       >
+        Est. June 16, 1911 · 115 years of innovation
         IBM 115 · Remember When is an independent community tribute built in
         honor of IBM&apos;s 115th anniversary. It is not affiliated with,
         endorsed by, or sponsored by International Business Machines
@@ -32,7 +33,15 @@ export default function Disclaimer() {
           opacity: 0.7,
         }}
       >
-        Built by BlindspotLab · mojeeb.xyz
+        Built by BlindspotLab ·{" "}
+        <a
+          href="https://mojeeb.xyz"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "inherit", textDecoration: "underline", textUnderlineOffset: "2px" }}
+        >
+          mojeeb.xyz
+        </a>
       </p>
     </footer>
   );
