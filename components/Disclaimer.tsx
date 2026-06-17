@@ -18,7 +18,7 @@ export default function Disclaimer() {
           lineHeight: 1.7,
         }}
       >
-        Est. June 16, 1911 · 115 years of innovation
+        Est. June 16, 1911 · 115 years of innovation <br />
         IBM 115 · Remember When is an independent community tribute built in
         honor of IBM&apos;s 115th anniversary. It is not affiliated with,
         endorsed by, or sponsored by International Business Machines
