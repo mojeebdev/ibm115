@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import Disclaimer from "@/components/Disclaimer";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
@@ -45,6 +46,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Disclaimer />
+        <Analytics />
       </body>
     </html>
   );
