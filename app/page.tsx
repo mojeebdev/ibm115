@@ -36,10 +36,6 @@ export default function LandingPage() {
           </div>
         </div>
       </div>
-
-      <p className="hero-footer">
-        Est. June 16, 1911 · 115 years of innovation
-      </p>
     </main>
   );
 }
