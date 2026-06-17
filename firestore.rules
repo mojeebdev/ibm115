@@ -1,0 +1,107 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // IBM 115 community memories — public read, controlled write
+    match /memories/{memoryId} {
+
+      // Anyone can browse the celebration wall and memory pages
+      allow read: if true;
+
+      // New submissions only — validated schema, likes must start at 0
+      allow create: if isValidMemoryCreate();
+
+      // Likes (+1 only) or attaching a photo after upload — nothing else
+      allow update: if isValidLikeUpdate() || isValidPhotoUpdate(memoryId);
+
+      // Memories are permanent artifacts — no client deletes
+      allow delete: if false;
+    }
+  }
+}
+
+// ─── Validators ─────────────────────────────────────────────────────────────
+
+function isValidMemoryCreate() {
+  let data = request.resource.data;
+
+  return data.keys().hasAll([
+          'slug', 'name', 'product', 'year',
+          'aiResponse', 'shareToX', 'createdAt', 'likes'
+        ])
+      && isValidSlug(data.slug)
+      && isValidName(data.name)
+      && isValidProduct(data.product)
+      && isValidYear(data.year)
+      && isValidAiResponse(data.aiResponse)
+      && data.shareToX is bool
+      && data.createdAt is timestamp
+      && data.likes == 0
+      && isOptionalString(data, 'price', 50)
+      && isOptionalString(data, 'personalMemory', 2000)
+      && (!('photoUrl' in data) || data.photoUrl == null)
+      && (!('photoStoragePath' in data) || data.photoStoragePath == null);
+}
+
+function isValidLikeUpdate() {
+  let diff = request.resource.data.diff(resource.data);
+
+  return diff.affectedKeys().hasOnly(['likes'])
+      && request.resource.data.likes == resource.data.likes + 1
+      && request.resource.data.likes <= 100000;
+}
+
+function isValidPhotoUpdate(memoryId) {
+  let diff = request.resource.data.diff(resource.data);
+
+  return diff.affectedKeys().hasOnly(['photoUrl', 'photoStoragePath'])
+      && request.resource.data.photoUrl is string
+      && request.resource.data.photoUrl.matches('https://firebasestorage.googleapis.com/.*')
+      && request.resource.data.photoStoragePath is string
+      && request.resource.data.photoStoragePath.matches('memories/' + memoryId + '/.+')
+      // All other fields must remain unchanged
+      && request.resource.data.slug == resource.data.slug
+      && request.resource.data.name == resource.data.name
+      && request.resource.data.product == resource.data.product
+      && request.resource.data.year == resource.data.year
+      && request.resource.data.aiResponse == resource.data.aiResponse
+      && request.resource.data.likes == resource.data.likes;
+}
+
+function isValidSlug(value) {
+  return value is string
+      && value.size() > 0
+      && value.size() <= 60
+      && value.matches('[a-z0-9]+(-[a-z0-9]+)*');
+}
+
+function isValidName(value) {
+  return value is string
+      && value.size() > 0
+      && value.size() <= 100;
+}
+
+function isValidProduct(value) {
+  return value is string
+      && value.size() > 0
+      && value.size() <= 200;
+}
+
+function isValidYear(value) {
+  return value is int
+      && value >= 1911
+      && value <= 2026;
+}
+
+function isValidAiResponse(value) {
+  return value is string
+      && value.size() > 0
+      && value.size() <= 2000;
+}
+
+function isOptionalString(data, field, maxLen) {
+  return !(field in data)
+      || data[field] == null
+      || (data[field] is string && data[field].size() <= maxLen);
+}

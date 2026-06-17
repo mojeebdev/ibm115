@@ -1,0 +1,30 @@
+{
+  "name": "ibm115",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "deploy:rules": "firebase deploy --only firestore:rules,storage:rules"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.0",
+    "browser-image-compression": "^2.0.2",
+    "firebase": "^11.0.0",
+    "html2canvas": "^1.4.1",
+    "next": "^16.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "^16.0.0",
+    "firebase-tools": "^15.20.0",
+    "typescript": "^5"
+  }
+}

@@ -1,0 +1,1002 @@
+:root {
+  /* IBM Brand */
+  --ibm-void: #0f0f0f;
+  --ibm-blue: #006699;
+  --ibm-blue-bright: #1f70c1;
+  --ibm-blue-dim: rgba(0, 102, 153, 0.12);
+  --ibm-blue-border: rgba(0, 102, 153, 0.25);
+
+  /* Surfaces */
+  --surface-01: #111111;
+  --surface-02: #1a1a1a;
+  --surface-03: #222222;
+
+  /* Typography */
+  --ink-primary: #f2f2f2;
+  --ink-secondary: #8a8a9a;
+  --ink-tertiary: #4a4a5a;
+
+  /* Borders */
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-active: rgba(0, 102, 153, 0.4);
+
+  /* Spacing */
+  --nav-height: 64px;
+  --content-max: 1200px;
+  --section-pad: clamp(80px, 10vw, 140px);
+
+  /* IBM Selectric TypewriterCard tokens */
+  --selectric-body: #e8e4dc;
+  --selectric-key: #4a7fbf;
+  --selectric-key-shadow: #2e5a8e;
+  --selectric-accent: #6b9fd4;
+  --paper-white: #fafaf8;
+
+  /* Typography families */
+  --font-display: "Array", sans-serif;
+  --font-body: "IBM Plex Sans", sans-serif;
+  --font-serif: "IBM Plex Serif", serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  /* Type scale */
+  --text-hero: clamp(64px, 9vw, 128px);
+  --text-h1: clamp(40px, 5.5vw, 80px);
+  --text-h2: clamp(28px, 4vw, 52px);
+  --text-h3: clamp(20px, 2.5vw, 32px);
+  --text-body: clamp(14px, 1.5vw, 16px);
+  --text-label: 11px;
+  --tracking-display: -0.04em;
+  --tracking-heading: -0.02em;
+  --tracking-label: 0.12em;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--ink-primary);
+  background-color: var(--ibm-void);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+/* ─── Hero background ────────────────────────────────────────────────────── */
+.hero-bg {
+  background-color: var(--ibm-void);
+  background-image: radial-gradient(
+    circle,
+    rgba(0, 102, 153, 0.18) 1px,
+    transparent 1px
+  );
+  background-size: 32px 32px;
+  position: relative;
+}
+
+.hero-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 60% 45% at 50% -5%,
+    rgba(0, 102, 153, 0.22) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 85% 65% at 50% 50%,
+    transparent 40%,
+    var(--ibm-void) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── Buttons ────────────────────────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--ibm-blue);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: var(--ibm-blue-bright);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-primary);
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.btn-ghost:hover {
+  border-color: var(--ibm-blue-border);
+  background: var(--ibm-blue-dim);
+}
+
+/* ─── Form ───────────────────────────────────────────────────────────────── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--ink-secondary);
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 15px;
+  color: var(--ink-primary);
+  background: var(--surface-03);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: var(--border-active);
+}
+
+.form-input.error,
+.form-textarea.error {
+  border-color: #e63b2e;
+}
+
+.form-error {
+  font-size: 12px;
+  color: #e63b2e;
+}
+
+/* ─── Typewriter key animation ───────────────────────────────────────────── */
+.typewriter-key {
+  transform: translateY(0px);
+  transition: transform 60ms ease-in;
+}
+
+.typewriter-key.active {
+  transform: translateY(2px);
+}
+
+.typewriter-key .key-highlight {
+  opacity: 1;
+  transition: opacity 60ms ease-in;
+}
+
+.typewriter-key.active .key-highlight {
+  opacity: 0;
+}
+
+@media (max-width: 768px) {
+  .typewriter-key.active {
+    transform: translateY(1.5px);
+  }
+}
+
+/* ─── TypewriterCard: paper + Selectric stack ────────────────────────────── */
+.typewriter-card {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.typewriter-paper {
+  position: relative;
+  z-index: 2;
+  width: 86%;
+  min-height: 280px;
+  padding: clamp(16px, 4vw, 28px);
+  background: var(--paper-white);
+  border-radius: 2px 2px 0 0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+  margin-bottom: -28px;
+  cursor: default;
+}
+
+.typewriter-paper--complete {
+  cursor: pointer;
+}
+
+.typewriter-save-btn {
+  margin-top: 24px;
+  width: 100%;
+}
+
+.typewriter-paper-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: #4a4a5a;
+  letter-spacing: 0.08em;
+}
+
+.typewriter-paper-text {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: #1a1a1a;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  min-height: 200px;
+}
+
+.paper-hover-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.03);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  border-radius: 4px 4px 0 0;
+}
+
+.typewriter-paper:hover .paper-hover-overlay {
+  opacity: 1;
+}
+
+/* ─── Selectric machine photo — ONE shows at a time ─────────────────────── */
+.typewriter-machine {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  overflow: visible;
+}
+
+/*
+  Base: all machine photos hidden by default.
+  Each variant opts in explicitly.
+  This beats the global img { display: block } reset.
+*/
+.typewriter-machine-photo {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  display: none;
+}
+
+/* Desktop shows desktop image */
+.typewriter-selectric-desktop {
+  display: block;
+}
+
+/* Mobile stays hidden on desktop */
+.typewriter-selectric-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .typewriter-selectric-desktop {
+    display: none;
+  }
+  .typewriter-selectric-mobile {
+    display: block;
+  }
+}
+
+.typewriter-keys-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 14%;
+  z-index: 3;
+  padding: 0 8%;
+  pointer-events: none;
+}
+
+/* ─── Responsive image swaps (all other image pairs) ─────────────────────── */
+.hero-tunnel-desktop,
+.cga-hero-strip-desktop,
+.submit-intro-desktop,
+.timeline-ref-desktop {
+  display: block;
+}
+
+.hero-tunnel-mobile,
+.cga-hero-strip-mobile,
+.submit-intro-mobile,
+.timeline-ref-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hero-tunnel-desktop,
+  .cga-hero-strip-desktop,
+  .submit-intro-desktop,
+  .timeline-ref-desktop {
+    display: none;
+  }
+
+  .hero-tunnel-mobile,
+  .cga-hero-strip-mobile,
+  .submit-intro-mobile,
+  .timeline-ref-mobile {
+    display: block;
+  }
+}
+
+/* ─── Page layout ────────────────────────────────────────────────────────── */
+.page-container {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: calc(var(--nav-height) + 40px) 24px var(--section-pad);
+}
+
+.page-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ibm-blue);
+  margin-bottom: 16px;
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  letter-spacing: var(--tracking-display);
+  line-height: 1.05;
+  margin-bottom: 16px;
+}
+
+.page-subtitle {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(18px, 2.5vw, 26px);
+  color: var(--ink-secondary);
+  max-width: 640px;
+}
+
+/* ─── Landing hero — single viewport, no scroll ──────────────────────────── */
+.hero-landing {
+  min-height: 100svh;
+  min-height: 100dvh;
+  max-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--nav-height) + 16px) clamp(16px, 4vw, 24px)
+    clamp(16px, 3vh, 32px);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-tunnel {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-tunnel img {
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.35;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(12px, 2.2vh, 20px);
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: clamp(9px, 2vw, 11px);
+  letter-spacing: 0.16em;
+  color: var(--ibm-blue);
+  margin: 0;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 9vw, 128px);
+  letter-spacing: var(--tracking-display);
+  line-height: 1.02;
+  margin: 0;
+}
+
+.hero-subline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(16px, 2.5vw, 26px);
+  color: var(--ink-secondary);
+  margin: 0;
+  line-height: 1.45;
+  max-width: 36ch;
+}
+
+/* CGA ambient strip — decorative only, does not push CTAs down */
+.hero-actions {
+  position: relative;
+  width: min(100%, 520px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(12px, 2vh, 20px) 0;
+  margin-top: clamp(4px, 1vh, 12px);
+}
+
+.cga-hero-strip {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 4px;
+}
+
+.cga-hero-strip img {
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.08;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-ctas {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: clamp(10px, 2vw, 16px);
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0;
+}
+
+.hero-footer {
+  font-family: var(--font-mono);
+  font-size: clamp(9px, 2vw, 11px);
+  color: var(--ink-tertiary);
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .hero-landing {
+    padding-top: calc(var(--nav-height) + 12px);
+  }
+
+  .hero-title br {
+    display: none;
+  }
+
+  .hero-title {
+    font-size: clamp(36px, 10.5vw, 52px);
+  }
+
+  .hero-subline br {
+    display: none;
+  }
+
+  .hero-actions {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-ctas .btn-primary,
+  .hero-ctas .btn-ghost {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-height: 700px) {
+  .hero-content {
+    gap: 8px;
+  }
+
+  .hero-title {
+    font-size: clamp(32px, 8vw, 48px);
+  }
+
+  .hero-subline {
+    font-size: 15px;
+  }
+
+  .hero-actions {
+    padding: 8px 0;
+    margin-top: 0;
+  }
+}
+
+/* ─── Submit page ────────────────────────────────────────────────────────── */
+.submit-grid {
+  display: grid;
+  grid-template-columns: 55% 45%;
+  gap: 48px;
+  align-items: start;
+}
+
+.submit-form-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.submit-typewriter-column {
+  height: auto;
+  max-height: none;
+  overflow: visible;
+}
+
+.submit-intro {
+  margin-bottom: 32px;
+}
+
+.submit-intro-image {
+  width: 100%;
+  height: auto;
+  background: transparent;
+  border-radius: 8px;
+  overflow: visible;
+}
+
+.submit-intro-image img {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: contain;
+  filter: grayscale(0.3);
+}
+
+.submit-intro-caption {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-secondary);
+  margin-top: 12px;
+  line-height: 1.5;
+}
+
+.submit-success-banner {
+  margin-top: 24px;
+  padding: 20px;
+  background: var(--ibm-blue-dim);
+  border: 1px solid var(--ibm-blue-border);
+  border-radius: 8px;
+}
+
+.submit-success-banner p {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ibm-blue-bright);
+  margin-bottom: 12px;
+}
+
+.submit-success-url {
+  font-size: 10px !important;
+  color: var(--ink-tertiary) !important;
+  word-break: break-all;
+}
+
+@media (max-width: 900px) {
+  .submit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .submit-form-column {
+    order: 1;
+  }
+
+  .submit-typewriter-column {
+    order: 2;
+  }
+
+  .typewriter-card {
+    max-width: 100%;
+  }
+}
+
+/* ─── Memory card ────────────────────────────────────────────────────────── */
+.memory-card {
+  background: var(--surface-01);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.memory-card:hover {
+  border-color: var(--ibm-blue-border);
+  transform: translateY(-2px);
+}
+
+.memory-card-photo {
+  height: 200px;
+  position: relative;
+}
+
+.memory-card-fallback-wrap {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.memory-card-fallback-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: sepia(0.4) brightness(0.6);
+}
+
+.memory-card-fallback-year {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 48px;
+  opacity: 0.25;
+  color: #fff;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.memory-card-body {
+  padding: 16px;
+}
+
+.memory-card-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+  margin-bottom: 8px;
+}
+
+.memory-card-product {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 18px;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.memory-card-rule {
+  border: none;
+  border-top: 1px solid var(--border-subtle);
+  margin: 12px 0;
+}
+
+.memory-card-excerpt {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  color: var(--ink-secondary);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.memory-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.memory-card-like {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--ink-secondary);
+  transition: color 0.2s ease;
+}
+
+.memory-card-like:hover,
+.memory-card-like.liked {
+  color: var(--ibm-blue-bright);
+}
+
+.memory-card-view {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-secondary);
+  margin-left: auto;
+  transition: color 0.2s ease;
+}
+
+.memory-card-view:hover {
+  color: var(--ink-primary);
+}
+
+/* ─── Celebration page ───────────────────────────────────────────────────── */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-secondary);
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  color: var(--ink-primary);
+  border-color: var(--ibm-blue-border);
+  background: var(--ibm-blue-dim);
+}
+
+.masonry-grid {
+  columns: 3;
+  column-gap: 24px;
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 1024px) {
+  .masonry-grid {
+    columns: 2;
+  }
+}
+
+@media (max-width: 640px) {
+  .masonry-grid {
+    columns: 1;
+  }
+}
+
+.celebration-loading {
+  color: var(--ink-secondary);
+  text-align: center;
+  padding: 48px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+
+/* ─── History timeline ───────────────────────────────────────────────────── */
+.timeline-era {
+  border-left: 4px solid var(--ibm-blue);
+  padding-left: 24px;
+  margin-bottom: 48px;
+}
+
+.timeline-era-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--ibm-blue);
+  margin-bottom: 8px;
+}
+
+.timeline-milestone {
+  margin-bottom: 24px;
+}
+
+.timeline-milestone-year {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-primary);
+  margin-bottom: 8px;
+}
+
+.timeline-milestone-text {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink-secondary);
+  line-height: 1.7;
+  max-width: 640px;
+}
+
+.timeline-figure {
+  margin: 0 0 12px;
+}
+
+.timeline-image-wrap {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  overflow: visible;
+}
+
+.timeline-image-editorial {
+  max-width: 640px;
+}
+
+.timeline-image-editorial img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+}
+
+.timeline-caption {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--ink-tertiary);
+  margin-top: 8px;
+}
+
+.history-cta {
+  margin-top: 80px;
+  padding: 48px;
+  text-align: center;
+  background: var(--surface-01);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+}
+
+.history-cta p {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(18px, 2.5vw, 24px);
+  color: var(--ink-secondary);
+  margin-bottom: 24px;
+}
+
+/* ─── Toggle ─────────────────────────────────────────────────────────────── */
+.toggle {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: var(--surface-03);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.toggle.active {
+  background: var(--ibm-blue);
+}
+
+.toggle-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.toggle.active .toggle-knob {
+  transform: translateX(20px);
+}
+
+/* ─── Blinking cursor ────────────────────────────────────────────────────── */
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
