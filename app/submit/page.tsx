@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useCallback } from "react";
 import MemoryForm, { MemoryFormValues } from "@/components/MemoryForm";
 import TypewriterCard from "@/components/TypewriterCard";
@@ -98,6 +99,16 @@ export default function SubmitPage() {
         </div>
 
         <div className="submit-typewriter-column">
+          {!savedMemory && !formValues && (
+            <div className="submit-link-preview">
+              <p className="submit-link-preview-title">Your personal memory link</p>
+              <p className="submit-link-preview-text">
+                After you submit, your link will appear here. Bookmark it, share
+                it, or open it anytime to view your memory and download a PNG.
+              </p>
+            </div>
+          )}
+
           <TypewriterCard
             text={aiText}
             personalMemory={formValues?.personalMemory}
@@ -109,16 +120,28 @@ export default function SubmitPage() {
 
           {savedMemory && (
             <div className="submit-success-banner">
-              <p>Your memory is now part of IBM history.</p>
+              <p className="submit-success-headline">
+                Your memory is live on the wall.
+              </p>
+              <p className="submit-success-copy">
+                Save this link — it&apos;s your permanent page to view your
+                memory and download a PNG whenever you want.
+              </p>
               <p className="submit-success-url">
                 {baseUrl}/m/{savedMemory.slug}
               </p>
-              <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-                {savedMemory.shareToX && <ShareButton memory={savedMemory} />}
+              <div className="submit-success-actions">
+                <Link
+                  href={`/m/${savedMemory.slug}`}
+                  className="btn-primary"
+                  style={{ padding: "10px 18px", fontSize: "10px" }}
+                >
+                  View My Memory →
+                </Link>
                 <button
                   type="button"
                   className="btn-ghost"
-                  style={{ padding: "8px 16px", fontSize: "10px" }}
+                  style={{ padding: "10px 18px", fontSize: "10px" }}
                   onClick={() => {
                     navigator.clipboard.writeText(
                       `${baseUrl}/m/${savedMemory.slug}`
@@ -129,6 +152,7 @@ export default function SubmitPage() {
                 >
                   {copied ? "Copied!" : "Copy Link"}
                 </button>
+                {savedMemory.shareToX && <ShareButton memory={savedMemory} />}
               </div>
             </div>
           )}

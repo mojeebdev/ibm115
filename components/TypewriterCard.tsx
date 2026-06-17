@@ -9,6 +9,7 @@ interface TypewriterCardProps {
   text: string;
   personalMemory?: string;
   isGenerating?: boolean;
+  instant?: boolean;
   year?: number;
   name?: string;
   onComplete?: () => void;
@@ -48,6 +49,7 @@ export default function TypewriterCard({
   text,
   personalMemory,
   isGenerating = false,
+  instant = false,
   year,
   name,
   onComplete,
@@ -67,6 +69,14 @@ export default function TypewriterCard({
       setIsComplete(false);
       setIsTyping(false);
       completedRef.current = false;
+      return;
+    }
+
+    if (instant) {
+      setDisplayedText(text);
+      setIsTyping(false);
+      setIsComplete(true);
+      completedRef.current = true;
       return;
     }
 
@@ -101,7 +111,7 @@ export default function TypewriterCard({
     }, 35);
 
     return () => clearInterval(interval);
-  }, [text, onComplete]);
+  }, [text, onComplete, instant]);
 
   const handleSavePng = useCallback(async () => {
     if (!cardRef.current || !isComplete) return;

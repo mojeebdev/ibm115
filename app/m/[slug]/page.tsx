@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getMemoryBySlug } from "@/lib/firestore";
+import MemorySlugTypewriter from "@/components/MemorySlugTypewriter";
 import ShareButton from "@/components/ShareButton";
 
 interface PageProps {
@@ -79,56 +80,11 @@ export default async function MemoryPage({ params }: PageProps) {
         </div>
       )}
 
-      {memory.personalMemory && (
-        <blockquote
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontStyle: "italic",
-            fontSize: "18px",
-            color: "var(--ink-secondary)",
-            borderLeft: "3px solid var(--ibm-blue)",
-            paddingLeft: "20px",
-            margin: "32px 0",
-            lineHeight: 1.6,
-          }}
-        >
-          &ldquo;{memory.personalMemory}&rdquo;
-        </blockquote>
-      )}
+      <MemorySlugTypewriter memory={memory} />
 
-      <div
-        style={{
-          background: "var(--paper-white)",
-          color: "#1a1a1a",
-          padding: "32px",
-          borderRadius: "8px",
-          margin: "32px 0",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginBottom: "16px",
-            fontFamily: "var(--font-mono)",
-            fontSize: "9px",
-            color: "#4a4a5a",
-          }}
-        >
-          <span>ibm.1911</span>
-          <span>115 years</span>
-        </div>
-        <p
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: "15px",
-            lineHeight: 1.8,
-            whiteSpace: "pre-wrap",
-          }}
-        >
-          {memory.aiResponse}
-        </p>
-      </div>
+      <p className="memory-slug-hint">
+        Save a PNG of this memory anytime using the button above.
+      </p>
 
       <div
         style={{
