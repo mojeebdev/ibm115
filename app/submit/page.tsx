@@ -100,6 +100,7 @@ export default function SubmitPage() {
         <div className="submit-typewriter-column">
           <TypewriterCard
             text={aiText}
+            personalMemory={formValues?.personalMemory}
             isGenerating={isGenerating}
             year={formValues ? parseInt(formValues.year, 10) : undefined}
             name={formValues?.name}

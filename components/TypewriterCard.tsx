@@ -7,6 +7,7 @@ import { slugifyFilename } from "@/lib/utils";
 
 interface TypewriterCardProps {
   text: string;
+  personalMemory?: string;
   isGenerating?: boolean;
   year?: number;
   name?: string;
@@ -45,6 +46,7 @@ function TypewriterKey({ index, active }: { index: number; active: boolean }) {
 
 export default function TypewriterCard({
   text,
+  personalMemory,
   isGenerating = false,
   year,
   name,
@@ -54,8 +56,10 @@ export default function TypewriterCard({
   const [isTyping, setIsTyping] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const [activeKeys, setActiveKeys] = useState<Set<number>>(new Set());
-  const paperRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   const completedRef = useRef(false);
+
+  const userStory = personalMemory?.trim() ?? "";
 
   useEffect(() => {
     if (!text) {
@@ -100,10 +104,11 @@ export default function TypewriterCard({
   }, [text, onComplete]);
 
   const handleSavePng = useCallback(async () => {
-    if (!paperRef.current || !isComplete) return;
-    const canvas = await html2canvas(paperRef.current, {
-      backgroundColor: "#fafaf8",
+    if (!cardRef.current || !isComplete) return;
+    const canvas = await html2canvas(cardRef.current, {
+      backgroundColor: "#0f0f0f",
       scale: 2,
+      ignoreElements: (el) => el.classList.contains("typewriter-save-btn"),
     });
     const link = document.createElement("a");
     link.download = `ibm-memory-${year || "unknown"}-${slugifyFilename(name || "memory")}.png`;
@@ -112,40 +117,44 @@ export default function TypewriterCard({
   }, [isComplete, year, name]);
 
   return (
-    <div className="typewriter-card">
+    <div className="typewriter-card" ref={cardRef}>
       {/* Paper feeds into the Selectric paper slot */}
-      <div
-        ref={paperRef}
-        className={`typewriter-paper${isComplete ? " typewriter-paper--complete" : ""}`}
-        onClick={isComplete ? handleSavePng : undefined}
-        title={isComplete ? "Click to save PNG" : undefined}
-      >
+      <div className="typewriter-paper">
         <div className="typewriter-paper-header">
           <span>ibm.1911</span>
           <span>115 years</span>
         </div>
 
-        <div className="typewriter-paper-text">
-          {displayedText}
-          {(isTyping || isGenerating) && (
-            <span className="cursor-blink">_</span>
-          )}
-        </div>
+        {userStory && (
+          <div className="typewriter-paper-user">
+            <p className="typewriter-paper-label">Your memory</p>
+            <p className="typewriter-paper-user-text">{userStory}</p>
+          </div>
+        )}
+
+        {(userStory || displayedText || isGenerating) && (
+          <div className="typewriter-paper-ai">
+            {userStory && (
+              <p className="typewriter-paper-label">IBM remembers</p>
+            )}
+            <div className="typewriter-paper-text">
+              {displayedText}
+              {(isTyping || isGenerating) && (
+                <span className="cursor-blink">_</span>
+              )}
+            </div>
+          </div>
+        )}
 
         {isComplete && (
           <button
             type="button"
             className="btn-primary typewriter-save-btn"
-            onClick={(e) => {
-              e.stopPropagation();
-              handleSavePng();
-            }}
+            onClick={handleSavePng}
           >
             Save as PNG
           </button>
         )}
-
-        {isComplete && <div className="paper-hover-overlay" />}
       </div>
 
       {/* Single Selectric base — full machine, paper loaded */}
@@ -178,12 +187,6 @@ export default function TypewriterCard({
           </svg>
         </div>
       </div>
-
-      <style jsx>{`
-        .typewriter-paper:hover .paper-hover-overlay {
-          opacity: 1;
-        }
-      `}</style>
     </div>
   );
 }

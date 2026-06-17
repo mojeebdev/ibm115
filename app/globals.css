@@ -271,13 +271,38 @@ select {
   cursor: default;
 }
 
-.typewriter-paper--complete {
-  cursor: pointer;
-}
-
 .typewriter-save-btn {
   margin-top: 24px;
   width: 100%;
+}
+
+.typewriter-paper-label {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #6a6a7a;
+  margin: 0 0 8px;
+}
+
+.typewriter-paper-user {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(26, 26, 26, 0.12);
+}
+
+.typewriter-paper-user-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 14px;
+  color: #1a1a1a;
+  line-height: 1.65;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.typewriter-paper-ai .typewriter-paper-text {
+  min-height: 0;
 }
 
 .typewriter-paper-header {
@@ -296,24 +321,7 @@ select {
   color: #1a1a1a;
   line-height: 1.7;
   white-space: pre-wrap;
-  min-height: 200px;
-}
-
-.paper-hover-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.03);
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  pointer-events: none;
-  border-radius: 4px 4px 0 0;
-}
-
-.typewriter-paper:hover .paper-hover-overlay {
-  opacity: 1;
+  min-height: 120px;
 }
 
 /* ─── Selectric machine photo — ONE shows at a time ─────────────────────── */
